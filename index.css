@@ -28,6 +28,7 @@ html, body {
 
 .food-details{
     margin-left: 1em;
+    max-width: 43vw;
 }
 
 .buy-btn{
