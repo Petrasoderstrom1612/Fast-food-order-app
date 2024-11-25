@@ -8,14 +8,14 @@ const displayMenu = (data) => {
     const allItems = data.map((oneItem) => {
         const {name, ingredients, imgName, id, price} = oneItem
         return `
-        <div class="menu-inner" data-product=${id}>
+        <div class="menu-inner">
         <img src="./images/${imgName}"/>
         <div class="food-details">
             <p>${name}</p>
             <p>${ingredients.map((oneIngredience) => {return oneIngredience}).join(", ")}</p>
             <p>${price} SEK</p>
         </div>
-            <button id="buy-btn" class="buy-btn"><img src="./images/add-btn.jpg"/></button>
+            <button class="buy-btn" ><img id="buy-btn" data-product=${id} src="./images/add-btn.jpg"/></button>
         </div>    
         <div class="divider"></div>
         `
@@ -26,14 +26,17 @@ const displayMenu = (data) => {
 
 displayMenu(menuArray) 
 
-const buyBtn = document.getElementById("buy-btn") 
 
-buyBtn.addEventListener("click", (e) => {
-    const productElement = e.target.parentElement.parentElement;
-    const productId = productElement.getAttribute("data-product")
-    console.log(productId )
-    const targetProduct = menuArray.filter((oneProduct) => {
-        return oneProduct.id === productId
-    })
-    console.log(targetProduct)
+document.addEventListener("click", (e) => {
+    if (e.target.id === "buy-btn"){
+        console.log(e.target.dataset.product)
+        displayCart(e.target.dataset.product)
+    }
 })
+
+const displayCart = (clickedProduct) => {
+    const targetProduct = menuArray.filter((oneProduct) => {
+        return oneProduct.id === Number(clickedProduct)
+    })[0]
+    console.log(targetProduct)
+}
