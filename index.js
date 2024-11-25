@@ -12,9 +12,10 @@ const displayMenu = (data) => {
         <p>image</p>
         <p>${ingredients.map((oneIngredience) => {return oneIngredience}).join(", ")}</p>
         <p>${price}</p>
+        <br>
         `
         // <p>${([...ingredients])}</p>
-   })
+   }).join(" ")
    menu.innerHTML = allItems
 }
 
