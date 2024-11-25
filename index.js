@@ -6,13 +6,18 @@ console.log(menuArray)
 const displayMenu = (data) => {
     menu.innerHTML = ""
     const allItems = data.map((oneItem) => {
-       const {name, ingredients, id, price, emoji} = oneItem
+       const {name, ingredients, imgName, id, price} = oneItem
     return `
-        <p>${name}</p>
-        <p>image</p>
-        <p>${ingredients.map((oneIngredience) => {return oneIngredience}).join(", ")}</p>
-        <p>${price}</p>
-        <br>
+    <div class="menu-inner">
+        <img src="./images/${imgName}"/>
+        <div class="food-details">
+            <p>${name}</p>
+            <p>${ingredients.map((oneIngredience) => {return oneIngredience}).join(", ")}</p>
+            <p>${price} SEK</p>
+        </div>
+        <button id="buy-btn" class="buy-btn"><img src="./images/add-btn.jpg"/></button>
+    </div>    
+    <div class="divider"></div>
         `
         // <p>${([...ingredients])}</p>
    }).join(" ")
@@ -21,9 +26,3 @@ const displayMenu = (data) => {
 
 displayMenu(menuArray) 
 
-//         name: "Pizza",
-//         ingredients: ["pepperoni", "mushrom", "mozarella"],
-//         id: 0,
-//         price: 14,
-//         emoji: "🍕"
-//     },
