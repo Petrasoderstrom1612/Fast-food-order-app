@@ -41,3 +41,35 @@ html, body {
 .cart{
     display: none;
 }
+
+.shopping-cart-headline{
+    text-align: center;
+}
+
+.shopping-cart{
+    display: flex;
+    flex-direction: column;
+}
+
+.one-item-in-a-cart{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.divider-shopping-cart{
+    border-top: 1px solid #393333; 
+    margin: 20px 0; 
+    width: 100%;     
+}
+
+.checkout-btn{
+    background-color: #16DB99;
+    color:white;
+    border:none;
+    padding-top:10px;
+    padding-bottom:10px;
+    margin-left:2em;
+    margin-right: 2em;;
+}
+

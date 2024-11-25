@@ -50,9 +50,25 @@ const updateCartArr = (clickedProductId) => {
 }
 
 const displayCart = (cartArr) => {
-    cart.style.display = "flex"
-    const displaiedItemsInCart = cartArr.map((eachItem) =>{
-        return `<p>${eachItem.name}</p>`
+    cart.classList.add("shopping-cart")
+    let displaiedItemsInCart = cartArr.map((eachItem) =>{
+        return `
+        <div class="one-item-in-a-cart">
+            <p>${eachItem.name}</p>
+            <button>remove</button>
+            <p>${eachItem.price}</p>
+        </div>    
+                `
     }).join(" ")
+    displaiedItemsInCart += `        
+        <div>
+            <p>Total price ${totalPrice(cartArr)}</p>
+        </div>`
     return  allItemsInCart.innerHTML = displaiedItemsInCart
+}
+
+const totalPrice = (cartArr) =>{
+   return cartArr.reduce((total, currentElement) => {
+    return total + currentElement.price
+    },0)
 }
