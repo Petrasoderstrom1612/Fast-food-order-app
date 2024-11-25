@@ -35,4 +35,9 @@ html, body {
     all: unset;
     right: 1em;
     position: absolute;
+    cursor: pointer;
+}
+
+.cart{
+    display: none;
 }
