@@ -4,15 +4,16 @@ const menu = document.getElementById("menu")
 console.log(menuArray)
 
 const displayMenu = (data) => {
-   menu.innerHTML = ""
-   const allItems = menuArray.map((oneItem) => {
+    menu.innerHTML = ""
+    const allItems = data.map((oneItem) => {
+       const {name, ingredients, id, price, emoji} = oneItem
     return `
-        <p>${oneItem.name}</p>
+        <p>${name}</p>
         <p>image</p>
-        <p>${oneItem.ingredients.map((oneIngredience) => {return oneIngredience}).join(", ")}</p>
-        <p>price</p>
+        <p>${ingredients.map((oneIngredience) => {return oneIngredience}).join(", ")}</p>
+        <p>${price}</p>
         `
-        // <p>${([...oneItem.ingredients])}</p>
+        // <p>${([...ingredients])}</p>
    })
    menu.innerHTML = allItems
 }
