@@ -54,15 +54,17 @@ const displayCart = (cartArr) => {
     let displaiedItemsInCart = cartArr.map((eachItem) =>{
         return `
         <div class="one-item-in-a-cart">
-            <p>${eachItem.name}</p>
-            <button>remove</button>
-            <p>${eachItem.price}</p>
+            <div class="ordered-item-and-remove-btn">
+                <p>${eachItem.name}</p>
+                <button class="remove-btn">remove</button>
+            </div>
+            <p>${eachItem.price} SEK</p>
         </div>    
                 `
     }).join(" ")
     displaiedItemsInCart += `        
-        <div>
-            <p>Total price ${totalPrice(cartArr)}</p>
+        <div class="total-price">
+            <p>Total price</p> <p>${totalPrice(cartArr)} SEK</p>
         </div>`
     return  allItemsInCart.innerHTML = displaiedItemsInCart
 }
