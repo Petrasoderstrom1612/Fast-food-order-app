@@ -7,7 +7,7 @@ console.log(menuArray)
 
 let cartArr = []
 
-const displayMenu = (data) => {
+const displayMenu = (data) => { //the visual display of array
     menu.innerHTML = ""
     const allItems = data.map((oneItem) => {
         const {name, ingredients, imgName, id, price} = oneItem
@@ -34,29 +34,31 @@ displayMenu(menuArray)
 document.addEventListener("click", (e) => {
     if (e.target.id === "buy-btn"){
         console.log(e.target.dataset.product)
-        updateCartArr(e.target.dataset.product)
+        addToCartArr(e.target.dataset.product)
         displayCart(cartArr)
+    }
+    if (e.target.id === "remove-btn"){
+        removeFromCardArr(e.target.dataset.remove, cartArr)
     }
 })
 
-const updateCartArr = (clickedProductId) => {
+const addToCartArr = (clickedProductId) => { //addition to Cart array
     const targetProduct = menuArray.filter((oneProduct) => {
         return oneProduct.id === Number(clickedProductId)
     })[0]
-    console.log(targetProduct)
     cartArr.push(targetProduct)
-    console.log("cartArr",cartArr)
+    console.log("cartArr", cartArr)
     return cartArr
 }
 
-const displayCart = (cartArr) => {
+const displayCart = (cartArr) => { //visual display of Cart array
     cart.classList.add("shopping-cart")
     let displaiedItemsInCart = cartArr.map((eachItem) =>{
         return `
-        <div class="one-item-in-a-cart">
+        <div class="one-item-in-a-cart" >
             <div class="ordered-item-and-remove-btn">
                 <p>${eachItem.name}</p>
-                <button class="remove-btn">remove</button>
+                <button class="remove-btn" id="remove-btn" data-remove=${eachItem.id}>remove</button>
             </div>
             <p>${eachItem.price} SEK</p>
         </div>    
@@ -69,8 +71,23 @@ const displayCart = (cartArr) => {
     return  allItemsInCart.innerHTML = displaiedItemsInCart
 }
 
-const totalPrice = (cartArr) =>{
+const totalPrice = (cartArr) =>{ //total sum of Cart array
    return cartArr.reduce((total, currentElement) => {
     return total + currentElement.price
     },0)
 }
+
+const removeFromCardArr = (idToDelete, cartArr) => { //deletion from Cart array
+    console.log(idToDelete)
+    const deleteIndex = cartArr.findIndex((oneProduct) => {
+        return oneProduct.id === Number(idToDelete) 
+    })
+    console.log("deleteIndex", deleteIndex)
+    if (deleteIndex !== -1) { //you need to ensure the index exists, otherwise undexpected behavior happens with splice
+        cartArr.splice(deleteIndex, 1) //splice means remove
+    }
+    console.log("cartArr", cartArr)
+    displayCart(cartArr)
+}    
+
+
