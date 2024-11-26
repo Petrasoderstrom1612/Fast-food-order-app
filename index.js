@@ -72,7 +72,8 @@ const displayCart = (cartArr) => { //visual display of Cart array
         </div>    
                 `
     }).join(" ")
-    displaiedItemsInCart += `        
+    displaiedItemsInCart += `   
+        <div class="divider-shopping-cart"></div>     
         <div class="total-price">
             <p>Total price</p> <p>${totalPrice(cartArr)} SEK</p>
         </div>`
