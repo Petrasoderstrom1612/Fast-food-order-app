@@ -43,10 +43,18 @@ document.addEventListener("click", (e) => {
 })
 
 const addToCartArr = (clickedProductId) => { //addition to Cart array
+    const existingProduct = cartArr.find((oneProduct) => oneProduct.id === Number(clickedProductId));
+
+    if (existingProduct) {
+        // Increment quantity if the product already exists in the cart
+        existingProduct.quantity += 1;
+    } else {
+
     const targetProduct = menuArray.filter((oneProduct) => {
         return oneProduct.id === Number(clickedProductId)
     })[0]
-    cartArr.push(targetProduct)
+    cartArr.push({...targetProduct, quantity: 1})
+}
     console.log("cartArr", cartArr)
     return cartArr
 }
@@ -57,10 +65,10 @@ const displayCart = (cartArr) => { //visual display of Cart array
         return `
         <div class="one-item-in-a-cart" >
             <div class="ordered-item-and-remove-btn">
-                <p>${eachItem.name}</p>
+                <p><span>${eachItem.quantity} x </span>${eachItem.name}</p>
                 <button class="remove-btn" id="remove-btn" data-remove=${eachItem.id}>remove</button>
             </div>
-            <p>${eachItem.price} SEK</p>
+            <p>${eachItem.price * eachItem.quantity} SEK</p>
         </div>    
                 `
     }).join(" ")
@@ -73,7 +81,7 @@ const displayCart = (cartArr) => { //visual display of Cart array
 
 const totalPrice = (cartArr) =>{ //total sum of Cart array
    return cartArr.reduce((total, currentElement) => {
-    return total + currentElement.price
+    return total + currentElement.price * currentElement.quantity
     },0)
 }
 
@@ -84,7 +92,13 @@ const removeFromCardArr = (idToDelete, cartArr) => { //deletion from Cart array
     })
     console.log("deleteIndex", deleteIndex)
     if (deleteIndex !== -1) { //you need to ensure the index exists, otherwise undexpected behavior happens with splice
+        const product = cartArr[deleteIndex]
+        if (product.quantity > 1){
+            product.quantity -= 1
+        } 
+        else {
         cartArr.splice(deleteIndex, 1) //splice means remove
+        }
     }
     console.log("cartArr", cartArr)
     displayCart(cartArr)
