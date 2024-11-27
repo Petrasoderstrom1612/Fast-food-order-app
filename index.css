@@ -100,3 +100,17 @@ html, body {
     margin-right: 2em;;
 }
 
+.payment-form{
+    display: none;
+    position: fixed; 
+    top: 50%; /* Centers vertically */
+    left: 50%; /* Centers horizontally */
+    transform: translate(-50%, -50%); /* Offsets by 50% to achieve perfect centering */
+    background-color: white; /* Sets a background color (optional) */
+    padding: 20px; /* Adds spacing inside the form */
+    border-radius: 5px;
+    box-shadow: 7px 7px 40px 40px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow for prominence */
+    z-index: 1000; /* Ensures the form is above all other content */
+}
+
+

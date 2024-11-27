@@ -2,6 +2,8 @@ import {menuArray} from "./data.js"
 const menu = document.getElementById("menu")
 const cart = document.getElementById("cart")
 const allItemsInCart = document.getElementById("all-items-in-cart")
+const checkoutBtn = document.getElementById("checkout-btn")
+const paymentForm = document.getElementById("payment-form")
 
 console.log(menuArray)
 
@@ -105,4 +107,33 @@ const removeFromCardArr = (idToDelete, cartArr) => { //deletion from Cart array
     displayCart(cartArr)
 }    
 
+const registerPaymentDetails = () => {
+    paymentForm.style.display = "block";
+    paymentForm.innerHTML = `
+    <form id="submit-form">
+        <input required type="text" id="fullname" name="fullname" placeholder="Enter your name"></input>
+        <input required type="number" id="card-number" name="card-number" placeholder="Enter card number"></input>
+        <input required type="number" id="cvv" name="cvv" placeholder="Enter CVV"></input>
+        <button type="submit">PAY</button>
+    </form>
+    `;
 
+    // Add the event listener to the form after it is added to the DOM
+    const submitForm = document.getElementById("submit-form");
+    submitForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const data = new FormData(submitForm);
+
+        const name = data.get("fullname");
+        const cardNumber = data.get("card-number");
+        const cvv = data.get("cvv");
+
+        console.log(name, cardNumber, cvv);
+    });
+
+    return paymentForm.innerHTML;
+};
+
+
+checkoutBtn.addEventListener("click", registerPaymentDetails);
