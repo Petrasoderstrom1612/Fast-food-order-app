@@ -110,11 +110,12 @@ const removeFromCardArr = (idToDelete, cartArr) => { //deletion from Cart array
 const registerPaymentDetails = () => {
     paymentForm.style.display = "block";
     paymentForm.innerHTML = `
+    <h2>Enter card details</h2>
     <form id="submit-form">
         <input required type="text" id="fullname" name="fullname" placeholder="Enter your name"></input>
         <input required type="number" id="card-number" name="card-number" placeholder="Enter card number"></input>
         <input required type="number" id="cvv" name="cvv" placeholder="Enter CVV"></input>
-        <button type="submit">PAY</button>
+        <button type="submit">Pay</button>
     </form>
     `;
 
