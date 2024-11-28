@@ -17,8 +17,8 @@ const displayMenu = (data) => { //the visual display of array
         <div class="menu-inner">
         <img src="./images/${imgName}"/>
         <div class="food-details">
-            <p>${name}</p>
-            <p>${ingredients.map((oneIngredience) => {return oneIngredience}).join(", ")}</p>
+            <h2 class="product-name">${name}</h2>
+            <p class="ingrediences">${ingredients.map((oneIngredience) => {return oneIngredience}).join(", ")}</p>
             <p>${price} SEK</p>
         </div>
             <button class="buy-btn" ><img id="buy-btn" data-product=${id} src="./images/add-btn.jpg"/></button>
