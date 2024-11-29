@@ -108,7 +108,7 @@ const removeFromCardArr = (idToDelete, cartArr) => { //deletion from Cart array
 }    
 
 const registerPaymentDetails = () => {
-    paymentForm.style.display = "block";
+    paymentForm.style.display = "block"; //show the form
     paymentForm.innerHTML = `
     <button class="close-btn" id="close-btn">X</button>
     <h2>Enter card details</h2>
@@ -137,7 +137,7 @@ const registerPaymentDetails = () => {
     const closeBtn = document.getElementById("close-btn")
     
     closeBtn.addEventListener("click", function(){
-        paymentForm.style.display = 'none'
+        paymentForm.style.display = 'none' //hide the form
     })
 };
 
