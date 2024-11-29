@@ -196,3 +196,8 @@ form input:last-of-type {
     font-family: "Arimo", sans-serif;
     font-weight: bold;
 }
+
+.expiration-date{
+    font-size: 16px;
+    padding: 10px;
+}

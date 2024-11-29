@@ -109,21 +109,42 @@ const removeFromCardArr = (idToDelete, cartArr) => { //deletion from Cart array
 
 const registerPaymentDetails = () => {
     paymentForm.style.display = "block"; //show the form
-    paymentForm.innerHTML = `
+    paymentForm.innerHTML = `                                   
     <button class="close-btn" id="close-btn">X</button>
     <h2>Enter card details</h2>
     <form id="submit-form">
-        <input required type="text" id="fullname" name="fullname" placeholder="Enter your name"></input>
-        <input required type="number" id="card-number" name="card-number" placeholder="Enter card number"></input>
-        <input required type="number" id="cvv" name="cvv" placeholder="Enter CVV"></input>
+        <input required type="text" id="fullname" name="fullname" placeholder="Firstname Lastname"/>
+        <input required type="number" id="card-number" name="card-number" placeholder="Enter card number"/>
+        <input required type="expiration-date" id="expiration-date" class="expiration-date" name="expiration-date" placeholder="MM/YY" maxlength="5"/>
+        <input required type="number" id="cvv" name="cvv" placeholder="CVV"/>
         <button class="submit-btn" type="submit">Pay</button>
     </form>
-    `;
+    `; //input fields has type, id, name, placeholder
+
+    //styling for expiry date
+    const expirationInput = document.getElementById("expiration-date");
+
+    expirationInput.addEventListener("input", (e) => {
+        let value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+        if (value.length > 2) {
+            value = value.slice(0, 2) + '/' + value.slice(2, 4); // Add `/` after 2 digits
+        }
+        e.target.value = value;
+    });
+
+    expirationInput.addEventListener("keydown", (e) => {
+        // Prevent deleting the `/`
+        if ((e.key === "Backspace") && expirationInput.selectionStart === 3) {
+            e.preventDefault();
+        }
+    });
+
+
 
     // Add the event listener to the form after it is added to the DOM
     const submitForm = document.getElementById("submit-form");
     submitForm.addEventListener("submit", function (e) {
-        e.preventDefault();
+        e.preventDefault(); //do not forget e.preventDefault()
 
         const data = new FormData(submitForm);
 
@@ -132,6 +153,8 @@ const registerPaymentDetails = () => {
         const cvv = data.get("cvv");
 
         console.log(name, cardNumber, cvv);
+        setTimeout((e) => console.log("Thank you for your order"),1000)
+        setTimeout((e) => console.log("How was your experience? Rate us."),2000)
     });
 
     const closeBtn = document.getElementById("close-btn")
@@ -139,6 +162,8 @@ const registerPaymentDetails = () => {
     closeBtn.addEventListener("click", function(){
         paymentForm.style.display = 'none' //hide the form
     })
+
+
 };
 
 
