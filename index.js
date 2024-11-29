@@ -139,7 +139,7 @@ const registerPaymentDetails = () => {
     expirationInput.addEventListener("keydown", (e) => {
         // Prevent deleting the `/`
         if ((e.key === "Backspace") && expirationInput.selectionStart === 3) {
-            e.preventDefault();
+            e.preventDefault(); //the browser assumes you are sending data to a server and you are done with it so it displays the string with all the information you filled in the url, e.preventDefault() listens on this submit event and hides it
         }
     });
 
@@ -151,27 +151,47 @@ const registerPaymentDetails = () => {
     });
 
     // Set a custom error message for invalid input
-    cvvInput.addEventListener("invalid", () => {
+    cvvInput.addEventListener("invalid", () => { //maxlength attribute works only for type="text"
         if (cvvInput.value.length !== 3) {
             cvvInput.setCustomValidity("CVV must be exactly 3 digits.");
         }
     });
 
-    // Add the event listener to the form after it is added to the DOM
-    const submitForm = document.getElementById("submit-form");
-    submitForm.addEventListener("submit", function (e) {
-        e.preventDefault(); //do not forget e.preventDefault()
+        // Add the event listener to the form after it is added to the DOM
+        const submitForm = document.getElementById("submit-form");
+        submitForm.addEventListener("submit", function (e) {
+            e.preventDefault(); //do not forget e.preventDefault()
 
-        const data = new FormData(submitForm);
+            const data = new FormData(submitForm);
 
-        const name = data.get("fullname");
-        const cardNumber = data.get("card-number");
-        const cvv = data.get("cvv");
+            const name = data.get("fullname");
+            const cardNumber = data.get("card-number");
+            const cvv = data.get("cvv");
 
-        console.log(name, cardNumber, cvv);
-        setTimeout((e) => console.log("Thank you for your order"),1000)
-        setTimeout((e) => console.log("How was your experience? Rate us."),2000)
-    });
+            console.log(name, cardNumber, cvv);
+            setTimeout((e) =>  {
+                console.log("Thank you for your order")
+                paymentForm.innerHTML = `
+                <div class="modal-inner-loading">
+                <img src="images/loading.svg" class="loading">
+                <p>
+                    Processing the order...
+                </p>
+            </div>
+                `
+            }
+            ,1000)
+            setTimeout((e) => {`
+                <div class="modal-inner-loading">
+                <img src="images/loading.svg" class="loading">
+                <p>
+                    Please rate your experience
+                </p>
+                </div>
+                `
+            },5000)
+       
+        });
 
     const closeBtn = document.getElementById("close-btn")
     
