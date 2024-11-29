@@ -116,7 +116,11 @@ const registerPaymentDetails = () => {
         <input required type="text" id="fullname" name="fullname" placeholder="Firstname Lastname"/>
         <input required type="number" id="card-number" name="card-number" placeholder="Enter card number"/>
         <input required type="expiration-date" id="expiration-date" class="expiration-date" name="expiration-date" placeholder="MM/YY" maxlength="5"/>
-        <input required type="number" id="cvv" name="cvv" placeholder="CVV"/>
+        <input required type="number" id="cvv" name="cvv" placeholder="CVV" 
+             min="100" 
+             max="999" 
+             oninput="this.value = this.value.slice(0, 3)"/>
+        <span id="cvv-error" style="color: red; display: none;">Please enter a valid 3-digit CVV.</span>
         <button class="submit-btn" type="submit">Pay</button>
     </form>
     `; //input fields has type, id, name, placeholder
@@ -139,7 +143,19 @@ const registerPaymentDetails = () => {
         }
     });
 
+    const cvvInput = document.getElementById("cvv");
 
+    // Clear the custom error message when the user types
+    cvvInput.addEventListener("input", () => {
+        cvvInput.setCustomValidity("");
+    });
+
+    // Set a custom error message for invalid input
+    cvvInput.addEventListener("invalid", () => {
+        if (cvvInput.value.length !== 3) {
+            cvvInput.setCustomValidity("CVV must be exactly 3 digits.");
+        }
+    });
 
     // Add the event listener to the form after it is added to the DOM
     const submitForm = document.getElementById("submit-form");
