@@ -110,12 +110,13 @@ const removeFromCardArr = (idToDelete, cartArr) => { //deletion from Cart array
 const registerPaymentDetails = () => {
     paymentForm.style.display = "block";
     paymentForm.innerHTML = `
+    <button class="close-btn" id="close-btn">X</button>
     <h2>Enter card details</h2>
     <form id="submit-form">
         <input required type="text" id="fullname" name="fullname" placeholder="Enter your name"></input>
         <input required type="number" id="card-number" name="card-number" placeholder="Enter card number"></input>
         <input required type="number" id="cvv" name="cvv" placeholder="Enter CVV"></input>
-        <button type="submit">Pay</button>
+        <button class="submit-btn" type="submit">Pay</button>
     </form>
     `;
 
@@ -133,7 +134,11 @@ const registerPaymentDetails = () => {
         console.log(name, cardNumber, cvv);
     });
 
-    return paymentForm.innerHTML;
+    const closeBtn = document.getElementById("close-btn")
+    
+    closeBtn.addEventListener("click", function(){
+        paymentForm.style.display = 'none'
+    })
 };
 
 
