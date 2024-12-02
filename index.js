@@ -173,12 +173,10 @@ const registerPaymentDetails = () => {
         const dataFromTheForm = new FormData(submitForm); //An inbuild JS function that allows us to save user's input from a form into a data object that can then be sent to back-end, you choose your own variable name, the submitForm is the form DOM, new FormData() is fixed expression
 
         const firstname = dataFromTheForm.get("firstname");
-        const lastname = dataFromTheForm.get("lastname");
-        const cardNumber = dataFromTheForm.get("card-number");
-        const expirationDate = dataFromTheForm.get("expiration-date");
-        const cvv = dataFromTheForm.get("cvv");
+        console.log(firstname)
+        const dataFromTheFormObject = Object.fromEntries(dataFromTheForm.entries()) //a way to control an entire object Object.fromEntries(yourformDOM.entries())
+        console.log(dataFromTheFormObject);
 
-        console.log(firstname, lastname, cardNumber, expirationDate, cvv);
         setTimeout(() =>  {
             paymentForm.innerHTML = `
             <div class="modal-after-purchase">
