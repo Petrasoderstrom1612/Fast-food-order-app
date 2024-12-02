@@ -181,7 +181,7 @@ html, body {
 }
 
 .payment-form button:hover {
-    background-color: #00b359;
+    background-color: #00cc6680;
 }
 
 form input:last-of-type {
@@ -202,6 +202,20 @@ form input:last-of-type {
     padding: 10px;
 }
 
-.modal-inner-loading{
+.modal-after-purchase{
     text-align: center;
+    margin-top: 2em;
+}
+
+.close-btn-rate-experience{
+    all: unset;
+    right: 1em;
+    position: absolute;
+    cursor: pointer;
+    font-family: "Arimo", sans-serif;
+    font-weight: bold;
+}
+
+.arimo-font{
+    font-family: "Arimo", sans-serif;
 }

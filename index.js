@@ -113,7 +113,8 @@ const registerPaymentDetails = () => {
     <button class="close-btn" id="close-btn">X</button>
     <h2>Enter card details</h2>
     <form id="submit-form">
-        <input required type="text" id="fullname" name="fullname" placeholder="Firstname Lastname"/>
+        <input required type="text" id="firstname" name="firstname" placeholder="Firstname"/>
+        <input required type="text" id="lastname" name="lastname" placeholder="Lastname"/>
         <input required type="number" id="card-number" name="card-number" placeholder="Enter card number"/>
         <input required type="expiration-date" id="expiration-date" class="expiration-date" name="expiration-date" placeholder="MM/YY" maxlength="5"/>
         <input required type="number" id="cvv" name="cvv" placeholder="CVV" 
@@ -124,6 +125,13 @@ const registerPaymentDetails = () => {
         <button class="submit-btn" type="submit">Pay</button>
     </form>
     `; //input fields has type, id, name, placeholder
+
+    
+    const closeBtn = document.getElementById("close-btn")
+    closeBtn.addEventListener("click", function(){
+        console.log("closing")
+        paymentForm.style.display = 'none' //hide the form
+    })
 
     //styling for expiry date
     const expirationInput = document.getElementById("expiration-date");
@@ -157,47 +165,49 @@ const registerPaymentDetails = () => {
         }
     });
 
-        // Add the event listener to the form after it is added to the DOM
-        const submitForm = document.getElementById("submit-form");
-        submitForm.addEventListener("submit", function (e) {
-            e.preventDefault(); //do not forget e.preventDefault()
+    // Add the event listener to the form after it is added to the DOM
+    const submitForm = document.getElementById("submit-form");
+    submitForm.addEventListener("submit", function (e) {
+        e.preventDefault(); //e.preventDefault() makes the answers invisible in the URL
 
-            const data = new FormData(submitForm);
+        const dataFromTheForm = new FormData(submitForm); //An inbuild JS function that allows us to save user's input from a form into a data object that can then be sent to back-end, you choose your own variable name, the submitForm is the form DOM, new FormData() is fixed expression
 
-            const name = data.get("fullname");
-            const cardNumber = data.get("card-number");
-            const cvv = data.get("cvv");
+        const firstname = dataFromTheForm.get("firstname");
+        const lastname = dataFromTheForm.get("lastname");
+        const cardNumber = dataFromTheForm.get("card-number");
+        const expirationDate = dataFromTheForm.get("expiration-date");
+        const cvv = dataFromTheForm.get("cvv");
 
-            console.log(name, cardNumber, cvv);
-            setTimeout((e) =>  {
-                console.log("Thank you for your order")
-                paymentForm.innerHTML = `
-                <div class="modal-inner-loading">
+        console.log(firstname, lastname, cardNumber, expirationDate, cvv);
+        setTimeout(() =>  {
+            paymentForm.innerHTML = `
+            <div class="modal-after-purchase">
                 <img src="images/loading.svg" class="loading">
-                <p>
+                <p class="arimo-font">
                     Processing the order...
                 </p>
+        </div>
+            `
+        },1000)
+        setTimeout(() => {
+            paymentForm.innerHTML = `
+            <button class="close-btn-rate-experience" id="close-btn-rate-experience">X</button>
+            <div class="modal-after-purchase">
+                <p class="arimo-font">Thank you for your purchase, ${firstname}!</p>
+                <p class="arimo-font">Please rate your experience with us!</p>
             </div>
-                `
-            }
-            ,1000)
-            setTimeout((e) => {`
-                <div class="modal-inner-loading">
-                <img src="images/loading.svg" class="loading">
-                <p>
-                    Please rate your experience
-                </p>
-                </div>
-                `
-            },5000)
-       
-        });
-
-    const closeBtn = document.getElementById("close-btn")
+            `
+            const closeBtnRateExperience = document.getElementById("close-btn-rate-experience")
+            closeBtnRateExperience.addEventListener("click", function(){
+                console.log("closing")
+                paymentForm.style.display = 'none' //hide the form
+            })
+        },4000)
     
-    closeBtn.addEventListener("click", function(){
-        paymentForm.style.display = 'none' //hide the form
-    })
+    });
+
+
+
 
 
 };
