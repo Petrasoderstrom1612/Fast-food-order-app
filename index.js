@@ -4,6 +4,8 @@ const cart = document.getElementById("cart")
 const allItemsInCart = document.getElementById("all-items-in-cart")
 const checkoutBtn = document.getElementById("checkout-btn")
 const paymentForm = document.getElementById("payment-form")
+const innerPaymentForm = document.getElementById("inner-payment-form")
+const closeBtn = document.getElementById("close-btn")
 
 console.log(menuArray)
 
@@ -109,8 +111,8 @@ const removeFromCardArr = (idToDelete, cartArr) => { //deletion from Cart array
 
 const registerPaymentDetails = () => {
     paymentForm.style.display = "block"; //show the form
-    paymentForm.innerHTML = `                                   
-    <button class="close-btn" id="close-btn">X</button>
+    innerPaymentForm .innerHTML = `                                   
+    
     <h2>Enter card details</h2>
     <form id="submit-form">
         <input required type="text" id="firstname" name="firstname" placeholder="Firstname"/>
@@ -127,7 +129,6 @@ const registerPaymentDetails = () => {
     `; //input fields has type, id, name, placeholder
 
     
-    const closeBtn = document.getElementById("close-btn")
     closeBtn.addEventListener("click", function(){
         console.log("closing")
         paymentForm.style.display = 'none' //hide the form
@@ -178,7 +179,8 @@ const registerPaymentDetails = () => {
         console.log(dataFromTheFormObject);
 
         setTimeout(() =>  {
-            paymentForm.innerHTML = `
+            closeBtn.disabled = true
+            innerPaymentForm.innerHTML = `
             <div class="modal-after-purchase">
                 <img src="images/loading.svg" class="loading">
                 <p class="arimo-font">
@@ -188,8 +190,8 @@ const registerPaymentDetails = () => {
             `
         },1000)
         setTimeout(() => {
-            paymentForm.innerHTML = `
-            <button class="close-btn-rate-experience" id="close-btn-rate-experience">X</button>
+            closeBtn.disabled = false
+            innerPaymentForm .innerHTML = `
             <div class="modal-after-purchase">
                 <p class="arimo-font">Thank you for your purchase, ${firstname}!</p>
                 <p class="arimo-font">Please rate your experience with us!</p>
