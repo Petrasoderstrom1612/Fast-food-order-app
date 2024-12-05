@@ -102,16 +102,18 @@ const removeFromCardArr = (idToDelete, cartArr) => { //deletion from Cart array
             product.quantity -= 1
         } 
         else {
-        cartArr.splice(deleteIndex, 1) //splice means remove
+            cartArr.splice(deleteIndex, 1) //splice means remove
         }
     }
     console.log("cartArr", cartArr)
     displayCart(cartArr)
 }    
 
+checkoutBtn.addEventListener("click", registerPaymentDetails);
+
 const registerPaymentDetails = () => {
     paymentForm.style.display = "block"; //show the form
-    innerPaymentForm .innerHTML = `                                   
+    innerPaymentForm.innerHTML = `                                   
     
     <h2>Enter card details</h2>
     <form id="submit-form">
@@ -205,12 +207,6 @@ const registerPaymentDetails = () => {
         },4000)
     
     });
-
-
-
-
-
 };
 
 
-checkoutBtn.addEventListener("click", registerPaymentDetails);

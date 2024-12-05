@@ -197,6 +197,12 @@ form input:last-of-type {
     font-weight: bold;
 }
 
+.close-btn:disabled{
+    color: whitesmoke;
+    opacity: 0.2;
+    cursor: not-allowed;
+}
+
 .expiration-date{
     font-size: 16px;
     padding: 10px;
