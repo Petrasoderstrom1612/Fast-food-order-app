@@ -192,8 +192,21 @@ const registerPaymentDetails = () => {
             `
         },1000)
         setTimeout(() => {
-            closeBtn.disabled = false
             innerPaymentForm .innerHTML = `
+            <div class="modal-after-purchase">
+                <p class="arimo-font">Thank you for your purchase, ${firstname}!</p>
+                </div>
+                `
+                const closeBtnRateExperience = document.getElementById("close-btn-rate-experience")
+                closeBtnRateExperience.addEventListener("click", function(){
+                    console.log("closing")
+                    paymentForm.style.display = 'none' //hide the form
+                })
+            },4000)
+            setTimeout(() => {
+                closeBtn.disabled = false
+                innerPaymentForm .innerHTML = `
+                <p class="arimo-font">Please rate your experience with us!</p>
             <div class="modal-after-purchase">
                 <p class="arimo-font">Thank you for your purchase, ${firstname}!</p>
                 <p class="arimo-font">Please rate your experience with us!</p>
@@ -204,7 +217,7 @@ const registerPaymentDetails = () => {
                 console.log("closing")
                 paymentForm.style.display = 'none' //hide the form
             })
-        },4000)
+        },6000)
     
     });
 };
