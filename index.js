@@ -232,9 +232,9 @@ const registerPaymentDetails = () => {
             const stars = document.querySelectorAll(".stars-div i");
             const ratingInput = document.getElementById("rating-value");
     
-            stars.forEach((star, index) => {
-                star.addEventListener("click", () => {
-                    stars.forEach((s, i) => {
+            stars.forEach((star, index) => { //set up when the page is loaded
+                star.addEventListener("click", () => { 
+                    stars.forEach((s, i) => { //changed by click
                         s.classList.toggle("fa-solid", i <= index);
                         s.classList.toggle("fa-regular", i > index);
                     });
