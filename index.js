@@ -210,6 +210,10 @@ const registerPaymentDetails = () => {
             <div class="modal-after-purchase">
                 <p class="arimo-font">Thank you for your purchase, ${firstname}!</p>
                 <p class="arimo-font">Please rate your experience with us!</p>
+                <form id="stars-form">
+                <div><i class="fa-regular fa-star" title="star" aria-hidden="false" class="hollow"></i><i class="fa-regular fa-star" title="star" aria-hidden="false" class="hollow"></i><i class="fa-regular fa-star" title="star" aria-hidden="false" class="hollow"></i><i class="fa-regular fa-star" title="star" aria-hidden="false" class="hollow"></i><i class="fa-regular fa-star" title="star" aria-hidden="false" class="hollow"></i></div>
+                <button type="submit">Submit</button>
+                </form>
             </div>
             `
             const closeBtnRateExperience = document.getElementById("close-btn-rate-experience")
