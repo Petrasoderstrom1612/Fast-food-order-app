@@ -225,3 +225,37 @@ form input:last-of-type {
 .arimo-font{
     font-family: "Arimo", sans-serif;
 }
+
+.rate-experience{
+    margin-top: 2em;
+}
+
+.rate-experience-btn{
+    background-color: #16DB99;
+    color: white;
+    border: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: 6em;
+    margin-right: 6em;
+    cursor: pointer;
+    border-radius: 1px;
+}
+
+.stars-div{
+    margin-bottom: 2em;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.fa-star{
+    font-size: 2rem;
+    color: gold;
+}
+
+.fa-solid{
+    font-weight: 900;
+    font-size: 2em;
+    color: gold;
+}

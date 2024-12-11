@@ -109,7 +109,6 @@ const removeFromCardArr = (idToDelete, cartArr) => { //deletion from Cart array
     displayCart(cartArr)
 }    
 
-checkoutBtn.addEventListener("click", registerPaymentDetails);
 
 const registerPaymentDetails = () => {
     paymentForm.style.display = "block"; //show the form
@@ -117,28 +116,28 @@ const registerPaymentDetails = () => {
     
     <h2>Enter card details</h2>
     <form id="submit-form">
-        <input required type="text" id="firstname" name="firstname" placeholder="Firstname"/>
-        <input required type="text" id="lastname" name="lastname" placeholder="Lastname"/>
-        <input required type="number" id="card-number" name="card-number" placeholder="Enter card number"/>
-        <input required type="expiration-date" id="expiration-date" class="expiration-date" name="expiration-date" placeholder="MM/YY" maxlength="5"/>
-        <input required type="number" id="cvv" name="cvv" placeholder="CVV" 
-             min="100" 
-             max="999" 
-             oninput="this.value = this.value.slice(0, 3)"/>
-        <span id="cvv-error" style="color: red; display: none;">Please enter a valid 3-digit CVV.</span>
-        <button class="submit-btn" type="submit">Pay</button>
+    <input required type="text" id="firstname" name="firstname" placeholder="Firstname"/>
+    <input required type="text" id="lastname" name="lastname" placeholder="Lastname"/>
+    <input required type="number" id="card-number" name="card-number" placeholder="Enter card number"/>
+    <input required type="expiration-date" id="expiration-date" class="expiration-date" name="expiration-date" placeholder="MM/YY" maxlength="5"/>
+    <input required type="number" id="cvv" name="cvv" placeholder="CVV" 
+    min="100" 
+    max="999" 
+    oninput="this.value = this.value.slice(0, 3)"/>
+    <span id="cvv-error" style="color: red; display: none;">Please enter a valid 3-digit CVV.</span>
+    <button class="submit-btn" type="submit">Pay</button>
     </form>
     `; //input fields has type, id, name, placeholder
-
+    
     
     closeBtn.addEventListener("click", function(){
         console.log("closing")
         paymentForm.style.display = 'none' //hide the form
     })
-
+    
     //styling for expiry date
     const expirationInput = document.getElementById("expiration-date");
-
+    
     expirationInput.addEventListener("input", (e) => {
         let value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
         if (value.length > 2) {
@@ -146,84 +145,118 @@ const registerPaymentDetails = () => {
         }
         e.target.value = value;
     });
-
+    
     expirationInput.addEventListener("keydown", (e) => {
         // Prevent deleting the `/`
         if ((e.key === "Backspace") && expirationInput.selectionStart === 3) {
             e.preventDefault(); //the browser assumes you are sending data to a server and you are done with it so it displays the string with all the information you filled in the url, e.preventDefault() listens on this submit event and hides it
         }
     });
-
+    
     const cvvInput = document.getElementById("cvv");
-
+    
     // Clear the custom error message when the user types
     cvvInput.addEventListener("input", () => {
         cvvInput.setCustomValidity("");
     });
-
+    
     // Set a custom error message for invalid input
     cvvInput.addEventListener("invalid", () => { //maxlength attribute works only for type="text"
         if (cvvInput.value.length !== 3) {
             cvvInput.setCustomValidity("CVV must be exactly 3 digits.");
         }
     });
-
-    // Add the event listener to the form after it is added to the DOM
-    const submitForm = document.getElementById("submit-form");
-    submitForm.addEventListener("submit", function (e) {
-        e.preventDefault(); //e.preventDefault() makes the answers invisible in the URL
-
-        const dataFromTheForm = new FormData(submitForm); //An inbuild JS function that allows us to save user's input from a form into a data object that can then be sent to back-end, you choose your own variable name, the submitForm is the form DOM, new FormData() is fixed expression
-
-        const firstname = dataFromTheForm.get("firstname");
-        console.log(firstname)
-        const dataFromTheFormObject = Object.fromEntries(dataFromTheForm.entries()) //a way to control an entire object Object.fromEntries(yourformDOM.entries())
-        console.log(dataFromTheFormObject);
-
-        setTimeout(() =>  {
-            closeBtn.disabled = true
-            innerPaymentForm.innerHTML = `
-            <div class="modal-after-purchase">
-                <img src="images/loading.svg" class="loading">
-                <p class="arimo-font">
-                    Processing the order...
-                </p>
-        </div>
-            `
-        },1000)
-        setTimeout(() => {
-            innerPaymentForm .innerHTML = `
-            <div class="modal-after-purchase">
-                <p class="arimo-font">Thank you for your purchase, ${firstname}!</p>
-                </div>
-                `
-                const closeBtnRateExperience = document.getElementById("close-btn-rate-experience")
-                closeBtnRateExperience.addEventListener("click", function(){
-                    console.log("closing")
-                    paymentForm.style.display = 'none' //hide the form
-                })
-            },4000)
-            setTimeout(() => {
-                closeBtn.disabled = false
-                innerPaymentForm .innerHTML = `
-                <p class="arimo-font">Please rate your experience with us!</p>
-            <div class="modal-after-purchase">
-                <p class="arimo-font">Thank you for your purchase, ${firstname}!</p>
-                <p class="arimo-font">Please rate your experience with us!</p>
-                <form id="stars-form">
-                <div><i class="fa-regular fa-star" title="star" aria-hidden="false" class="hollow"></i><i class="fa-regular fa-star" title="star" aria-hidden="false" class="hollow"></i><i class="fa-regular fa-star" title="star" aria-hidden="false" class="hollow"></i><i class="fa-regular fa-star" title="star" aria-hidden="false" class="hollow"></i><i class="fa-regular fa-star" title="star" aria-hidden="false" class="hollow"></i></div>
-                <button type="submit">Submit</button>
-                </form>
-            </div>
-            `
-            const closeBtnRateExperience = document.getElementById("close-btn-rate-experience")
-            closeBtnRateExperience.addEventListener("click", function(){
-                console.log("closing")
-                paymentForm.style.display = 'none' //hide the form
-            })
-        },6000)
     
+    // Add the event listener to the form after it is added to the DOM
+    document.getElementById("submit-form").addEventListener("submit", (e) => {
+        e.preventDefault(); // Prevent form from reloading the page
+    
+        const dataFromTheForm = new FormData(submitForm);
+        const firstname = dataFromTheForm.get("firstname");
+        console.log(firstname);
+    
+        const dataFromTheFormObject = Object.fromEntries(dataFromTheForm.entries());
+        console.log(dataFromTheFormObject);
+    
+        const closeBtn = document.getElementById("close-btn");
+        const innerPaymentForm = document.getElementById("inner-payment-form");
+        const paymentForm = document.getElementById("payment-form");
+    
+        setTimeout(() => {
+            closeBtn.disabled = true;
+            innerPaymentForm.innerHTML = `
+                <div class="modal-after-purchase">
+                    <img src="images/loading.svg" class="loading">
+                    <p class="arimo-font">Processing the order...</p>
+                </div>`;
+        }, 1000);
+    
+        setTimeout(() => {
+            innerPaymentForm.innerHTML = `
+                <div class="modal-after-purchase">
+                    <p class="arimo-font">Thank you for your purchase, ${firstname}!</p>
+                </div>`;
+            document.getElementById("close-btn-rate-experience")?.addEventListener("click", () => {
+                console.log("closing");
+                paymentForm.style.display = "none"; // Hide the form
+            });
+        }, 4000);
+    
+        setTimeout(() => {
+            closeBtn.disabled = false;
+            innerPaymentForm.innerHTML = `
+                <p class="arimo-font rate-experience">Please rate your experience with us!</p>
+                <div class="modal-after-purchase">
+                    <form id="stars-form">
+                        <div class="stars-div">
+                            <i class="fa-regular fa-star" title="1"></i>
+                            <i class="fa-regular fa-star" title="2"></i>
+                            <i class="fa-regular fa-star" title="3"></i>
+                            <i class="fa-regular fa-star" title="4"></i>
+                            <i class="fa-regular fa-star" title="5"></i>
+                        </div>
+                        <input type="hidden" name="rating" id="rating-value" value="0">
+                        <button type="submit" class="rate-experience-btn">Submit</button>
+                    </form>
+                </div>`;
+    
+            setUpStarRating();
+    
+            document.getElementById("close-btn-rate-experience")?.addEventListener("click", () => {
+                console.log("closing");
+                paymentForm.style.display = "none"; // Hide the form
+            });
+        }, 6000);
+    
+        const setUpStarRating = () => {
+            const stars = document.querySelectorAll(".stars-div i");
+            const ratingInput = document.getElementById("rating-value");
+    
+            stars.forEach((star, index) => {
+                star.addEventListener("click", () => {
+                    stars.forEach((s, i) => {
+                        s.classList.toggle("fa-solid", i <= index);
+                        s.classList.toggle("fa-regular", i > index);
+                    });
+                    ratingInput.value = index + 1; // Set the selected star rating
+                    console.log(`Selected rating: ${ratingInput.value}`);
+                });
+            });
+        };
+    
+        document.addEventListener("submit", (e) => {
+            if (e.target && e.target.id === "stars-form") {
+                e.preventDefault();
+    
+                const starsForm = e.target;
+                const dataFromTheRatingForm = Object.fromEntries(new FormData(starsForm).entries());
+                console.log(dataFromTheRatingForm);
+            }
+        });
     });
+    
 };
 
 
+
+checkoutBtn.addEventListener("click", registerPaymentDetails); //this one must be after the function is declared
