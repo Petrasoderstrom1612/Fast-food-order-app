@@ -116,14 +116,14 @@ const registerPaymentDetails = () => {
     
     <h2>Enter card details</h2>
     <form id="submit-form">
-    <input required type="text" id="firstname" name="firstname" placeholder="Firstname"/>
-    <input required type="text" id="lastname" name="lastname" placeholder="Lastname"/>
-    <input required type="number" id="card-number" name="card-number" placeholder="Enter card number"/>
-    <input required type="expiration-date" id="expiration-date" class="expiration-date" name="expiration-date" placeholder="MM/YY" maxlength="5"/>
+    <input required type="text" id="firstname" name="firstname" placeholder="Firstname" aria-label="firstname"/>
+    <input required type="text" id="lastname" name="lastname" placeholder="Lastname" aria-label="lastname"/>
+    <input required type="number" id="card-number" name="card-number" placeholder="Enter card number" aria-label="card-number"/>
+    <input required type="expiration-date" id="expiration-date" class="expiration-date" name="expiration-date" placeholder="MM/YY" maxlength="5" aria-label="expiration date"/>
     <input required type="number" id="cvv" name="cvv" placeholder="CVV" 
     min="100" 
     max="999" 
-    oninput="this.value = this.value.slice(0, 3)"/>
+    oninput="this.value = this.value.slice(0, 3)"  aria-label="CVV"/>
     <span id="cvv-error" style="color: red; display: none;">Please enter a valid 3-digit CVV.</span>
     <button class="submit-btn" type="submit">Pay</button>
     </form>
@@ -203,7 +203,7 @@ const registerPaymentDetails = () => {
         }, 4000);
     
         setTimeout(() => {
-            closeBtn.disabled = false;
+            closeBtn.disabled = false; //aria labels on icons is per default unless you disable it
             innerPaymentForm.innerHTML = `
                 <p class="arimo-font rate-experience">Please rate your experience with us!</p>
                 <div class="modal-after-purchase">
