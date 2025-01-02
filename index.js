@@ -189,7 +189,8 @@ const registerPaymentDetails = () => {
     });
     
     // Add the event listener to the form after it is added to the DOM
-    document.getElementById("submit-form").addEventListener("submit", (e) => {
+    const submitForm = document.getElementById("submit-form")
+    submitForm.addEventListener("submit", (e) => {
         e.preventDefault(); // Prevent form from reloading the page
     
         const dataFromTheForm = new FormData(submitForm);
