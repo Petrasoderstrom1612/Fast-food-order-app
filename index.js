@@ -135,9 +135,9 @@ const registerPaymentDetails = () => {
     <form id="submit-form" style="position: relative">
     <input required type="text" id="firstname" name="firstname" placeholder="Firstname" aria-label="firstname"/> <span id="firstname-error" style="color: red; display: none; position: absolute; margin-top: 38px;">Please enter only letters.</span>
     <input required type="text" id="lastname" name="lastname" placeholder="Lastname" aria-label="lastname"/> <span id="lastname-error" style="color: red; display: none; position: absolute; margin-top: 98px;">Please enter only letters.</span>
-    <input required type="number" id="card-number" name="card-number" placeholder="Enter card number" aria-label="card-number"/>
+    <input class="arrowless" required type="number" id="card-number" name="card-number" placeholder="Enter card number" aria-label="card-number"/>
     <input required type="expiration-date" id="expiration-date" class="expiration-date" name="expiration-date" placeholder="MM/YY" maxlength="5" aria-label="expiration date"/>
-    <input required type="number" id="cvv" name="cvv" placeholder="CVV" 
+    <input class="arrowless" required type="number" id="cvv" name="cvv" placeholder="CVV" 
     min="100" 
     max="999" 
     oninput="this.value = this.value.slice(0, 3)"  aria-label="CVV"/>

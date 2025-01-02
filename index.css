@@ -219,6 +219,19 @@ span.error-message {
     padding: 10px;
 }
 
+/*CVV to skip an up and down arrow
+/* For Webkit browsers like Chrome and Safari */
+.arrowless::-webkit-outer-spin-button,
+.arrowless::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* For Firefox */
+.arrowless {
+    -moz-appearance: textfield;
+}
+
 .modal-after-purchase{
     text-align: center;
     margin-top: 2em;
