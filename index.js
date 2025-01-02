@@ -138,6 +138,7 @@ const registerPaymentDetails = () => {
     <input class="arrowless" required type="text" id="card-number" name="card-number" placeholder="Enter card number" aria-label="card-number" />
     <span id="card-number-error" style="color: red; display: none; position: absolute; margin-top: 159px;;">Card must be 16 digits.</span>
     <input required type="expiration-date" id="expiration-date" class="expiration-date" name="expiration-date" placeholder="MM/YY" maxlength="5" aria-label="expiration date"/>
+    <span id="expiration-date-error" style="color: red; display: none; position: absolute; margin-top: 219px;">Expiration date must be in MM/YY format.</span>
     <input class="arrowless" required type="number" id="cvv" name="cvv" placeholder="CVV" 
     min="100" 
     max="999" 
@@ -185,6 +186,7 @@ const registerPaymentDetails = () => {
 
     //Expiry date - styling
     const expirationInput = document.getElementById("expiration-date");
+    const expirationDateError = document.getElementById("expiration-date-error");
     
     expirationInput.addEventListener("input", (e) => {
         let value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
@@ -222,6 +224,7 @@ const registerPaymentDetails = () => {
         e.preventDefault(); // Prevent form from reloading the page
 
         const cardNumber = cardNumberInput.value.replace(/\D/g, ""); // Remove spaces and non-numeric characters
+        const expirationDate = expirationInput.value.replace(/\D/g, ""); // Remove `/`
 
         // Check if card number has exactly 16 digits
         if (cardNumber.length !== 16) {
@@ -230,6 +233,14 @@ const registerPaymentDetails = () => {
             return false; // Stop the form from submitting
         } else {
             cardNumberError.style.display = 'none'; // Hide the error message if valid
+        }
+
+        if (expirationDate.length !== 4) {
+            e.preventDefault(); // Prevent form submission
+            expirationDateError.style.display = 'block'; // Show the expiration date error
+            return false; 
+        } else {
+            expirationDateError.style.display = 'none'; // Hide the expiration date error if valid
         }
     
         const dataFromTheForm = new FormData(submitForm);
