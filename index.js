@@ -135,7 +135,7 @@ const registerPaymentDetails = () => {
     <form id="submit-form" style="position: relative">
     <input required type="text" id="firstname" name="firstname" placeholder="Firstname" aria-label="firstname"/> <span id="firstname-error" style="color: red; display: none; position: absolute; margin-top: 38px;">Please enter only letters.</span>
     <input required type="text" id="lastname" name="lastname" placeholder="Lastname" aria-label="lastname"/> <span id="lastname-error" style="color: red; display: none; position: absolute; margin-top: 98px;">Please enter only letters.</span>
-    <input class="arrowless" required type="number" id="card-number" name="card-number" placeholder="Enter card number" aria-label="card-number"/>
+    <input class="arrowless" required type="text" id="card-number" name="card-number" placeholder="Enter card number" aria-label="card-number" />
     <input required type="expiration-date" id="expiration-date" class="expiration-date" name="expiration-date" placeholder="MM/YY" maxlength="5" aria-label="expiration date"/>
     <input class="arrowless" required type="number" id="cvv" name="cvv" placeholder="CVV" 
     min="100" 
@@ -152,11 +152,36 @@ const registerPaymentDetails = () => {
         paymentForm.style.display = 'none' //hide the form
     })
     
-    //enter only characters and not numbers
+    //First name, last name -enter only characters and not numbers
     document.getElementById('firstname').addEventListener('keypress', blockNumbers);
     document.getElementById('lastname').addEventListener('keypress', blockNumbers);
     
-    //styling for expiry date
+    //Card number
+    const cardNumberInput = document.getElementById('card-number');
+
+    cardNumberInput.addEventListener("input", (e) => {
+        let value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+
+        if (value.length > 16) {
+            value = value.slice(0, 16); // Keep only the first 12 digits
+        }
+        
+        // Add spaces after every 4 digits
+        if (value.length > 4) {
+            value = value.slice(0, 4) + ' ' + value.slice(4);
+        }
+        if (value.length > 9) {
+            value = value.slice(0, 9) + ' ' + value.slice(9);
+        }
+        if (value.length > 14) {
+            value = value.slice(0, 14) + ' ' + value.slice(14);
+        }
+        
+        e.target.value = value;
+    });
+
+
+    //Expiry date - styling
     const expirationInput = document.getElementById("expiration-date");
     
     expirationInput.addEventListener("input", (e) => {
@@ -166,6 +191,7 @@ const registerPaymentDetails = () => {
         }
         e.target.value = value;
     });
+
     
     expirationInput.addEventListener("keydown", (e) => {
         // Prevent deleting the `/`
