@@ -110,6 +110,13 @@ const removeFromCardArr = (idToDelete, cartArr) => { //deletion from Cart array
 }    
 
 
+const blockNumbers = (event) => {
+    const key = event.key
+    if(/[0-9]/.test(key)){
+        event.preventDefault()
+    }
+}
+
 const registerPaymentDetails = () => {
     paymentForm.style.display = "block"; //show the form
     innerPaymentForm.innerHTML = `                                   
@@ -134,6 +141,10 @@ const registerPaymentDetails = () => {
         console.log("closing")
         paymentForm.style.display = 'none' //hide the form
     })
+    
+    //enter only characters and not numbers
+    document.getElementById('firstname').addEventListener('keypress', blockNumbers);
+    document.getElementById('lastname').addEventListener('keypress', blockNumbers);
     
     //styling for expiry date
     const expirationInput = document.getElementById("expiration-date");
