@@ -160,6 +160,7 @@ html, body {
     border-radius: 4px;
     outline: none;
     font-family: "Arimo", sans-serif;
+    margin-bottom: 10px;
 }
 
 .payment-form input:focus {
@@ -202,6 +203,16 @@ form input:last-of-type {
     opacity: 0.2;
     cursor: not-allowed;
 }
+
+span.error-message {
+    color: red;
+    display: none;
+    position: absolute;
+    top: 100%; /* Position below the input field */
+    left: 0;
+    margin-top: 5px; /* Optional, space between input and error message */
+    font-size: 0.875rem;
+  }
 
 .expiration-date{
     font-size: 16px;

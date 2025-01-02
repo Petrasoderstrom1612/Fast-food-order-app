@@ -112,19 +112,29 @@ const removeFromCardArr = (idToDelete, cartArr) => { //deletion from Cart array
 
 const blockNumbers = (event) => {
     const key = event.key
+    const inputField = event.target;  // Get the input field (either firstname or lastname)
+    const errorMessage = document.getElementById(`${inputField.id}-error`);
     if(/[0-9]/.test(key)){
         event.preventDefault()
+
+        errorMessage.style.display = 'block';
+        setTimeout(() => {
+            errorMessage.style.display = 'none';
+        }, 3000); // Hide after 3 seconds
+    } else {
+        errorMessage.style.display = 'none';  // Immediate hide of the error message for valid input
     }
 }
+
 
 const registerPaymentDetails = () => {
     paymentForm.style.display = "block"; //show the form
     innerPaymentForm.innerHTML = `                                   
     
     <h2>Enter card details</h2>
-    <form id="submit-form">
-    <input required type="text" id="firstname" name="firstname" placeholder="Firstname" aria-label="firstname"/>
-    <input required type="text" id="lastname" name="lastname" placeholder="Lastname" aria-label="lastname"/>
+    <form id="submit-form" style="position: relative">
+    <input required type="text" id="firstname" name="firstname" placeholder="Firstname" aria-label="firstname"/> <span id="firstname-error" style="color: red; display: none; position: absolute; margin-top: 38px;">Please enter only letters.</span>
+    <input required type="text" id="lastname" name="lastname" placeholder="Lastname" aria-label="lastname"/> <span id="lastname-error" style="color: red; display: none; position: absolute; margin-top: 98px;">Please enter only letters.</span>
     <input required type="number" id="card-number" name="card-number" placeholder="Enter card number" aria-label="card-number"/>
     <input required type="expiration-date" id="expiration-date" class="expiration-date" name="expiration-date" placeholder="MM/YY" maxlength="5" aria-label="expiration date"/>
     <input required type="number" id="cvv" name="cvv" placeholder="CVV" 
