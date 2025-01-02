@@ -136,6 +136,7 @@ const registerPaymentDetails = () => {
     <input required type="text" id="firstname" name="firstname" placeholder="Firstname" aria-label="firstname"/> <span id="firstname-error" style="color: red; display: none; position: absolute; margin-top: 38px;">Please enter only letters.</span>
     <input required type="text" id="lastname" name="lastname" placeholder="Lastname" aria-label="lastname"/> <span id="lastname-error" style="color: red; display: none; position: absolute; margin-top: 98px;">Please enter only letters.</span>
     <input class="arrowless" required type="text" id="card-number" name="card-number" placeholder="Enter card number" aria-label="card-number" />
+    <span id="card-number-error" style="color: red; display: none; position: absolute; margin-top: 159px;;">Card must be 16 digits.</span>
     <input required type="expiration-date" id="expiration-date" class="expiration-date" name="expiration-date" placeholder="MM/YY" maxlength="5" aria-label="expiration date"/>
     <input class="arrowless" required type="number" id="cvv" name="cvv" placeholder="CVV" 
     min="100" 
@@ -158,6 +159,7 @@ const registerPaymentDetails = () => {
     
     //Card number
     const cardNumberInput = document.getElementById('card-number');
+    const cardNumberError = document.getElementById('card-number-error'); 
 
     cardNumberInput.addEventListener("input", (e) => {
         let value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
@@ -218,6 +220,17 @@ const registerPaymentDetails = () => {
     const submitForm = document.getElementById("submit-form")
     submitForm.addEventListener("submit", (e) => {
         e.preventDefault(); // Prevent form from reloading the page
+
+        const cardNumber = cardNumberInput.value.replace(/\D/g, ""); // Remove spaces and non-numeric characters
+
+        // Check if card number has exactly 16 digits
+        if (cardNumber.length !== 16) {
+            e.preventDefault(); // Prevent form submission
+            cardNumberError.style.display = 'block'; // Show the error message
+            return false; // Stop the form from submitting
+        } else {
+            cardNumberError.style.display = 'none'; // Hide the error message if valid
+        }
     
         const dataFromTheForm = new FormData(submitForm);
         const firstname = dataFromTheForm.get("firstname");
