@@ -232,6 +232,12 @@ span.error-message {
     -moz-appearance: textfield;
 }
 
+@media only screen and (max-width: 390px) { /* smaller form for Iphone 12*/
+    .payment-form {
+        width: 321px;
+    }
+}
+
 .modal-after-purchase{
     text-align: center;
     margin-top: 2em;
@@ -263,7 +269,7 @@ span.error-message {
     cursor: pointer;
     border-radius: 1px;
     font-size: 17px;
-    padding: 10px 58px;
+    padding: 10px 10px;
 }
 
 .stars-div{
